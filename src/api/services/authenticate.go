@@ -2,15 +2,19 @@ package services
 
 import (
 	"encoding/base64"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
 
 func Login(c *gin.Context) {
 	authHeader := c.Request.Header["Authorization"][0]
-	auth, err := base64.StdEncoding.DecodeString(authHeader)
+	runes := []rune(authHeader)
+	safeSubstring := string(runes[6:])
+	fmt.Println(safeSubstring)
+	auth, err := base64.StdEncoding.DecodeString(safeSubstring)
 	if err != nil {
-		c.JSON(200, gin.H{
+		c.JSON(400, gin.H{
 			"message": "Login declined",
 		})
 	} else {
