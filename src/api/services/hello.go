@@ -1,4 +1,4 @@
-package main
+package services
 
 import "github.com/gin-gonic/gin"
 
@@ -6,7 +6,7 @@ func main() {
 	r := gin.Default()
 	r.GET("/user", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"dob":       "YYYY/MM/DDS",
+			"dob":       "YYYY/MM/DD",
 			"fullName":  "ANG MIE TJIN ONE",
 			"gbCd":      "D",
 			"idCardNo":  3322110000000001,
