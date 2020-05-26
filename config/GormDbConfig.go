@@ -3,6 +3,8 @@ package Config
 import (
 	"fmt"
 
+	"../src/api/models"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
@@ -28,6 +30,10 @@ func init() {
 
 		fmt.Print("Database connected")
 	}
+
+	conn.Debug().AutoMigrate(models.Person{})
+
+	//conn.Create(&m)
 
 	db = conn
 
