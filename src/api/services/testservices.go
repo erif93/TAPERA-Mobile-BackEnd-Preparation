@@ -13,7 +13,7 @@ func GetItem(c *gin.Context) {
 
 	db := c.MustGet("db").(*gorm.DB)
 
-	var items []models.Person
+	var items []models.Profile
 
 	db.Find(&items)
 

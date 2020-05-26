@@ -31,7 +31,7 @@ func init() {
 		fmt.Print("Database connected")
 	}
 
-	conn.Debug().AutoMigrate(models.Person{})
+	conn.Debug().AutoMigrate(models.Profile{})
 
 	//conn.Create(&m)
 
