@@ -1,6 +1,7 @@
 package main
 
 import (
+	"TAPERA-Mobile-BackEnd-Preparation/src/api/services"
 	"net/http"
 
 	gorm "./Config"
@@ -23,7 +24,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"Message": "API running"})
 	})
 
-	r.POST("/auth", S.Login)
+	r.POST("/auth", services.Login)
 
 	r.GET("/person", S.GetItem)
 
