@@ -16,15 +16,20 @@ func Login(c *gin.Context) {
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": "Login declined",
+			"status":  "error",
 		})
 	} else {
 		if string(auth) == "rajagusri:password" {
 			c.JSON(200, gin.H{
-				"message": "Login Approved",
+				"message":     "Login Approved",
+				"sessionId":   "IZJjq8aszhj7SAua",
+				"sessionUser": "rajagusri",
+				"status":      "approved",
 			})
 		} else {
 			c.JSON(200, gin.H{
-				"message": "Login Failed, wrong username/password",
+				"message": "Login Failed, wrong username or password",
+				"status":  "declined",
 			})
 		}
 	}
