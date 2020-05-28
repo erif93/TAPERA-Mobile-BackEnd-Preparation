@@ -35,11 +35,6 @@ func UpdateItem(c *gin.Context) {
 
 	// Validate input
 	var input models.UpdateProfile
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
 	db.Model(&item).Updates(input)
 	c.JSON(http.StatusOK, gin.H{"data": item})
 }
@@ -56,4 +51,22 @@ func DeleteItem(c *gin.Context) {
 	}
 	db.Delete(&item)
 	c.JSON(http.StatusOK, gin.H{"data": true})
+}
+
+func CreateItem(c *gin.Context) {
+
+	db := c.MustGet("db").(*gorm.DB)
+
+	var input models.Profile
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
+	item := models.Profile{FirstName: input.FirstName, LastName: input.LastName, Description: input.Description}
+
+	db.Create(&item)
+
+	c.JSON(http.StatusOK, gin.H{"data": item})
+
 }
