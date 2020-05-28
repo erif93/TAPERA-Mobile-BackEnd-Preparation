@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Login function
 func Login(c *gin.Context) {
 	authHeader := c.Request.Header["Authorization"][0]
 	runes := []rune(authHeader)
