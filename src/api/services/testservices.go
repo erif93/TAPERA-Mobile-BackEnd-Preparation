@@ -35,6 +35,11 @@ func UpdateItem(c *gin.Context) {
 
 	// Validate input
 	var input models.UpdateProfile
+	if err := c.ShouldBindJSON(&input); err != nil {
+	 c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	 return
+	}
+
 	db.Model(&item).Updates(input)
 	c.JSON(http.StatusOK, gin.H{"data": item})
 }

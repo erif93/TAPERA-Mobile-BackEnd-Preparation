@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	gorm "./Config"
+	gorm "./config"
 	S "./src/api/services"
 	"github.com/gin-gonic/gin"
 )
