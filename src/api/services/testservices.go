@@ -36,8 +36,8 @@ func UpdateItem(c *gin.Context) {
 	// Validate input
 	var input models.UpdateProfile
 	if err := c.ShouldBindJSON(&input); err != nil {
-	 c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	 return
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	db.Model(&item).Updates(input)
@@ -58,6 +58,7 @@ func DeleteItem(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": true})
 }
 
+//Create Item
 func CreateItem(c *gin.Context) {
 
 	db := c.MustGet("db").(*gorm.DB)
@@ -67,11 +68,24 @@ func CreateItem(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	item := models.Profile{FirstName: input.FirstName, LastName: input.LastName, Description: input.Description}
 
 	db.Create(&item)
 
 	c.JSON(http.StatusOK, gin.H{"data": item})
 
+}
+
+//Get By ID
+
+func FindItemById(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	// Get model if exist
+	var item models.Profile
+	if err := db.Where("id = ?", c.Param("id")).First(&item).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": item})
 }
